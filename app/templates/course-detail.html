@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<div class="container">
+    <div class="text-center mt-5">
+        <p class="fs-5 fw-bolder">{{category}}</p>
+    </div>
+    <div class="row">
+       {% for i in courses %}
+       <div class="card me-3" style="width: 18rem;">
+        <img class="card-img-top" src="{{i.image.url}}" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">{{i.name}}</h5>
+          <p class="card-text">Rs{{i.price}}</p> 
+          <div class="w-75 d-flex justify-content-between align-items-center">
+            <a href="#" class="btn btn-primary rounded-2">Buy</a> 
+          <a href="{% url "course_videos" i.id %}" class="btn btn-primary rounded-2">Detail</a> 
+          </div>
+        </div>
+      </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+{% endblock content %}
+
+

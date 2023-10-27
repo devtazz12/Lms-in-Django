@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+ <!-- Header Start -->
+ <div class="container-fluid bg-primary py-5 mb-5 page-header">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 text-center">
+                <h1 class="display-3 text-white animated slideInDown">Billing Detail</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a class="text-white" href="#">Home</a></li>
+                        <li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li>
+                        <li class="breadcrumb-item text-white active" aria-current="page">Courses</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Header End -->
+
+<div class="container d-flex w-50 align-items-center justify-content-between mx-auto">
+    <div >
+      <img width="90%" src="{{course.image.url}}" alt="">
+    </div>
+    <div class="w-100">
+        <h3>{{course.name}}</h3>
+        <h6>Rs{{course.price}}</h6>
+    </div>
+
+</div>
+
+
+<div class="container mt-3 border p-3">
+    <form action="{% url "enroll" course.id %}" method="post">
+        {% csrf_token %}
+    <div class="row">
+        <div class="col-lg-6 col-sm-12 col-md-6">
+           <label class="fw-bolder" for="first_name" id="#first_name"  >First Name:</label> 
+           <input class="w-100 p-2" type="text" id="first_name" placeholder="john">
+        </div>
+        <div class="col-lg-6 col-sm-12 col-md-6">
+            <label class="fw-bolder" for="last_name" id="#last_name"  >Last Name:</label> 
+            <input class="w-100 p-2" type="text" id="last_name" placeholder="Tajpuriya">
+        </div>
+        <div class="col-lg-12 col-sm-12 col-md-12">
+            <label class="fw-bolder" for="address" id="#address" >Address:</label> 
+            <input class="w-100 p-2" type="text" id="address" placeholder="kathmandu/jadibuti">
+        </div>
+        <div class="col-lg-12 col-sm-12 col-md-12">
+            <label class="fw-bolder" for="country" id="#country" >Country:</label> 
+            <input class="w-100 p-2" type="text" id="country" placeholder="Nepal">
+        </div>
+        <div class="col-lg-12 col-sm-12 col-md-12 mt-3">
+            <label class="fw-bolder" for="payment" id="#payment" >Payment method:</label> 
+            <select name="" id="payment">
+                <option value="esewa">esewa</option>
+                <option value="khalti">khalti</option>
+            </select>
+        </div>
+        {% if user.is_authenticated %}
+        {% if mycourse %}
+        <a class="btn btn-primary mt-3 fw-bolder fs-4">Already Enroll</a>
+        {% else %}
+        <button type="submit" class="btn btn-primary mt-3 fw-bolder fs-4">Enroll</button>
+        {% endif %}
+        {% else %}
+        <a class="btn btn-primary mt-3 fw-bolder fs-4">Please Login to Enroll the course</a>
+        {% endif %}
+    </div>
+</form>
+</div>
+
+
+
+{% endblock content %}

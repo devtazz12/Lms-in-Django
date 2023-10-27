@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+ <!-- Header Start -->
+ <div class="container-fluid bg-primary py-5 mb-5 page-header">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-10 text-center">
+                <h1 class="display-3 text-white animated slideInDown">Courses</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center">
+                        <li class="breadcrumb-item"><a class="text-white" href="#">Home</a></li>
+                        <li class="breadcrumb-item"><a class="text-white" href="#">Pages</a></li>
+                        <li class="breadcrumb-item text-white active" aria-current="page">Courses</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Header End -->
+
+
+<div class="container">
+    <div class="text-center mt-5">
+        <p class="fs-5 fw-bolder">{{course.name}}</p>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-md-12 col-sm-12">
+            <div class="d-flex align-items-center">
+                <img class="w-50 me-5" src="{{course.image.url}}" alt="">
+             <div>
+                  <h5>{{course.name}}</h5>
+                  <span>Rs{{course.price}}</span> <br>
+                  <a class="btn btn-primary mt-5" href="{% url "billing_info" course.id %}">Buy Now</a>
+             </div>    
+           </div>
+        </div>
+        <div class="border rounded-3 pb-3 col-lg-6 col-md-12 col-sm-12">
+            {% if lectures %}
+            {% for i in lectures %}
+            {% if a == "yes" %}
+           <div class="d-flex align-items-center mt-3 bg-light">
+               <div class="d-flex align-items-center position-relative">
+                <video width="150px" class="me-3" src="{{i.video.url}}" poster="{{i.thumbnail.url}}" controls type="video/mp4" controlsList="nodownload"></video>
+                {% comment %} <img width="100px" class="me-3" src="{% static "img/course-1.jpg" %}" alt=""> {% endcomment %}
+               </div>
+               <div>
+                <h6>{{i.name}}</h6>
+                <span>{{i.duration}} min</span>
+               </div>
+           </div>
+           {% else %}
+           {% if i.preview == True %}
+           <div class="d-flex align-items-center mt-3 bg-light">
+            <div class="d-flex align-items-center position-relative">
+             <video width="150px" class="me-3" src="{{i.video.url}}" poster="{{i.thumbnail.url}}" controls type="video/mp4" controlsList="nodownload"></video>
+             {% comment %} <img width="100px" class="me-3" src="{% static "img/course-1.jpg" %}" alt=""> {% endcomment %}
+            </div>
+            <div>
+             <h6>{{i.name}}</h6>
+             <span>{{i.duration}} min</span>
+            </div>
+        </div>
+           {% else %}
+           <div class="d-flex align-items-center mt-3 bg-light">
+            <div class="d-flex align-items-center position-relative">
+             <video width="150px" class="me-3" poster="{{i.thumbnail.url}}" controls type="video/mp4" controlsList="nodownload"></video>
+             {% comment %} <img width="100px" class="me-3" src="{% static "img/course-1.jpg" %}" alt=""> {% endcomment %}
+            </div>
+            <div>
+             <h6>{{i.name}}</h6>
+             <span>{{i.duration}} min</span>
+            </div>
+           </div>
+           {% endif %}
+           {% endif %}
+           {% endfor %}
+           {% else %}
+           <div class="d-flex align-items-center mt-3 bg-light">
+             <h1>Coming soon..</h1>
+            </div>
+           {% endif %}
+           
+        </div>
+    </div>
+</div>
+{% endblock content %}
